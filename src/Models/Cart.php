@@ -5,6 +5,8 @@ namespace Deved\Magento2Graphql\Models;
 
 use Deved\Magento2Graphql\Magento2Graphql;
 use GraphQL\Mutation;
+use GraphQL\Query;
+use GraphQL\RawObject;
 
 final class Cart extends AbstractModel
 {
@@ -16,21 +18,18 @@ final class Cart extends AbstractModel
      * @param Magento2Graphql $gql
      * @param false $customer
      */
-    public function __construct(Magento2Graphql $gql, $customer = false)
+    public function __construct(Magento2Graphql $gql)
     {
         parent::__construct($gql);
-        if (!$customer) {
-            $this->cartId = $this->createEmptyCart()->getData()->createEmptyCart;
-        }
     }
 
     /**
      * @return \GraphQL\Results
      */
-    protected function createEmptyCart()
+    public function createEmptyCart()
     {
         $mutation = new Mutation('createEmptyCart');
-        return $this->gql->client->runQuery($mutation);
+        return $this->cartId = $this->gql->client->runQuery($mutation)->getData()->createEmptyCart;
     }
 
     /**
@@ -41,5 +40,29 @@ final class Cart extends AbstractModel
     public function getCartId()
     {
         return $this->cartId;
+    }
+
+    public function addSimpleProductsToCart($sku, $quantity = 1)
+    {
+        $mutation = (new Mutation('addSimpleProductsToCart'))
+            ->setArguments(['input' => new RawObject(
+                'cart_id: "' . $this->getCartId() . '"
+                              cart_items: [
+                                {
+                                  data: {
+                                    quantity: ' . $quantity . '
+                                    sku: "' . $sku . '"
+                                  }
+                                }
+                              ]'
+            )])
+            ->setSelectionSet([
+                (new Query('cart'))
+                ->setSelectionSet([
+                    (new Query('items'))
+                    ->setSelectionSet(['id', 'quantity', (new Query('product'))
+                        ->setSelectionSet(['sku'])])
+                ])
+            ]);
     }
 }
