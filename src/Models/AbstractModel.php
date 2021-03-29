@@ -6,7 +6,7 @@ namespace Deved\Magento2Graphql\Models;
 
 use Deved\Magento2Graphql\Magento2Graphql;
 
-abstract class AbstractModel
+abstract class AbstractModel implements \Serializable
 {
     /**
      * @var Magento2Graphql
