@@ -1,0 +1,57 @@
+{
+    "name": "deved-it/laravel-magento2-graphql",
+    "description": "Magento 2 Laravel Graphql Client Library",
+    "keywords": [
+        "deved",
+        "magento2-graphql"
+    ],
+    "homepage": "https://github.com/deved-it/laravel-magento2-graphql",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Salvatore Guarino",
+            "email": "info@deved.it",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0",
+        "gmostafa/php-graphql-client": "^1.10",
+        "guzzlehttp/guzzle": "^7.3",
+        "laravel/framework": "^8.12"
+    },
+    "require-dev": {
+        "gmostafa/php-graphql-oqm": "^1.3",
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Deved\\Magento2Graphql\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Deved\\Magento2Graphql\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Deved\\Magento2Graphql\\Magento2GraphqlServiceProvider"
+            ],
+            "aliases": {
+                "Magento2Graphql": "Deved\\Magento2Graphql\\Magento2GraphqlFacade"
+            }
+        }
+    }
+}
