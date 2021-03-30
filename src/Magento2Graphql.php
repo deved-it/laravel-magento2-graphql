@@ -2,6 +2,7 @@
 
 namespace Deved\Magento2Graphql;
 
+use Deved\Magento2Graphql\Models\Cart;
 use GraphQL\Client;
 use GraphQL\Query;
 use GraphQL\RawObject;
@@ -19,6 +20,16 @@ class Magento2Graphql
     public function __construct()
     {
         $this->client = new Client(config('magento2-graphql.server'),[]);
+    }
+
+    /**
+     * Get the Cart
+     * @param false|string $cartId
+     * @return Cart
+     */
+    public function getCart($cartId = false)
+    {
+        return new Cart($this, $cartId);
     }
 
     /**

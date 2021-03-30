@@ -7,6 +7,7 @@ use Deved\Magento2Graphql\Magento2Graphql;
 use Exception;
 use GraphQL\Mutation;
 use GraphQL\Query;
+use GraphQL\QueryBuilder\QueryBuilder;
 use GraphQL\RawObject;
 use GraphQL\Results;
 
@@ -14,8 +15,6 @@ final class Cart extends AbstractModel
 {
     /** @var string */
     protected $cartId;
-    /** @var  Results*/
-    protected $cartContent;
 
     /**
      * Cart constructor.
@@ -26,10 +25,15 @@ final class Cart extends AbstractModel
     {
         $this->cartId = $cartId;
         parent::__construct($gql);
+        if (!$cartId) {
+            $this->createEmptyCart();
+        }
     }
 
     /**
-     * @return \GraphQL\Results
+     * Create an empty cart
+     *
+     * @return string
      */
     public function createEmptyCart()
     {
@@ -48,6 +52,8 @@ final class Cart extends AbstractModel
     }
 
     /**
+     * Add simple product to the cart
+     *
      * @param $sku
      * @param int $quantity
      * @return Cart
@@ -67,29 +73,44 @@ final class Cart extends AbstractModel
                               ]}'
             )])
             ->setSelectionSet([
-                (new Query('cart'))
-                ->setSelectionSet(['id',
-                    (new Query('items'))
-                    ->setSelectionSet(['id', 'quantity', (new Query('product'))
-                        ->setSelectionSet(['sku', 'stock_status'])])
-                ])
+                $this->getCartQuery()
             ]);
-        $this->cartContent = $this->gql->client->runQuery($mutation)->getResponseBody();
+        $this->content = $this->gql->client->runQuery($mutation, true)->getData();
         return $this;
     }
 
-    public function getContent()
+    /**
+     * Update the cart
+     *
+     * @return $this
+     */
+    public function updateCart()
     {
-        return $this->cartContent;
+        $this->content = $this->gql->client->runQuery($this->getCartQuery($this->cartId), true)->getData();
+        return $this;
     }
 
-    public function serialize()
+    /**
+     * Return the cart content query
+     *
+     * @param false|string $cartId
+     * @return Query
+     *
+     */
+    protected function getCartQuery($cartId = false)
     {
-        return $this->cartContent->getResponseBody();
-    }
-
-    public function unserialize($serialized)
-    {
-        $this->cartContent = $serialized;
+        $query = (new Query('cart'));
+        if ($cartId) {
+            $query->setArguments(['cart_id' => $cartId]);
+        }
+        return $query
+            ->setSelectionSet(['id',
+                (new Query('items'))
+                    ->setSelectionSet(['id', 'quantity', (new Query('product'))
+                        ->setSelectionSet(['sku', 'stock_status', (new Query('thumbnail'))
+                            ->setSelectionSet(['url', 'label'])
+                        ])
+                    ])
+            ]);
     }
 }

@@ -19,7 +19,8 @@
         "php": "^7.3|^8.0",
         "gmostafa/php-graphql-client": "^1.10",
         "guzzlehttp/guzzle": "^7.3",
-        "laravel/framework": "^8.12"
+        "laravel/framework": "^8.12",
+        "ext-json": "*"
     },
     "require-dev": {
         "gmostafa/php-graphql-oqm": "^1.3",
