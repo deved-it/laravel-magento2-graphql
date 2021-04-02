@@ -27,6 +27,8 @@ final class Cart extends AbstractModel
         parent::__construct($gql);
         if (!$cartId) {
             $this->createEmptyCart();
+        } else {
+            $this->updateCart();
         }
     }
 
