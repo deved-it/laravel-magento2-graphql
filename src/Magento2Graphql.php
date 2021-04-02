@@ -3,6 +3,7 @@
 namespace Deved\Magento2Graphql;
 
 use Deved\Magento2Graphql\Models\Cart;
+use Deved\Magento2Graphql\Models\Product;
 use GraphQL\Client;
 use GraphQL\Query;
 use GraphQL\RawObject;
@@ -30,6 +31,12 @@ class Magento2Graphql
     public function getCart($cartId = false)
     {
         return new Cart($this, $cartId);
+    }
+
+    public function getProducts()
+    {
+        $product = new Product($this);
+        return $product->executeQuery('products');
     }
 
     /**

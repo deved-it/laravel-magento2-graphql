@@ -4,11 +4,12 @@
 namespace Deved\Magento2Graphql\Models;
 
 
+use Deved\Magento2Graphql\HasQuery;
 use Deved\Magento2Graphql\Magento2Graphql;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
-abstract class AbstractModel implements Arrayable, \ArrayAccess, Jsonable, \JsonSerializable
+abstract class AbstractModel implements Arrayable, \ArrayAccess, Jsonable, \JsonSerializable, HasQuery
 {
     /**
      * @var Magento2Graphql
@@ -17,6 +18,8 @@ abstract class AbstractModel implements Arrayable, \ArrayAccess, Jsonable, \Json
     /** @var  array */
     protected $content;
 
+    protected $query = [];
+
     /**
      * AbstractModel constructor.
      * @param Magento2Graphql $gql
@@ -24,6 +27,12 @@ abstract class AbstractModel implements Arrayable, \ArrayAccess, Jsonable, \Json
     public function __construct(Magento2Graphql $gql)
     {
         $this->gql = $gql;
+        $this->setQueries();
+    }
+
+    protected function setQueries()
+    {
+
     }
 
     public function getContent()

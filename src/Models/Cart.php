@@ -3,6 +3,7 @@
 
 namespace Deved\Magento2Graphql\Models;
 
+use Deved\Magento2Graphql\HasQuery;
 use Deved\Magento2Graphql\Magento2Graphql;
 use Exception;
 use GraphQL\Mutation;
@@ -114,5 +115,15 @@ final class Cart extends AbstractModel
                         ])
                     ])
             ]);
+    }
+
+    public function getQuery($name): string
+    {
+        // TODO: Implement getQuery() method.
+    }
+
+    public function executeQuery($name): HasQuery
+    {
+        // TODO: Implement executeQuery() method.
     }
 }
