@@ -17,8 +17,9 @@ interface HasQuery
     /**
      * Execute GraphQl Query
      * @param $name
+     * @param array $variables
      * @return $this
      */
-    public function executeQuery($name): HasQuery;
+    public function executeQuery($name, array $variables = []): HasQuery;
 
 }

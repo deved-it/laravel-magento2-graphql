@@ -116,14 +116,4 @@ final class Cart extends AbstractModel
                     ])
             ]);
     }
-
-    public function getQuery($name): string
-    {
-        // TODO: Implement getQuery() method.
-    }
-
-    public function executeQuery($name): HasQuery
-    {
-        // TODO: Implement executeQuery() method.
-    }
 }

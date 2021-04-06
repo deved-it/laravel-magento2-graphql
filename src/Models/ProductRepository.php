@@ -5,16 +5,17 @@ namespace Deved\Magento2Graphql\Models;
 
 
 use Deved\Magento2Graphql\HasQuery;
-use Exception;
 
-final class Product extends AbstractModel
+final class ProductRepository extends AbstractModel
 {
-
+    /** @var int - Magento Category ID */
+    public $category;
     protected function setQueries()
     {
+        $category = $this->category;
         $products = <<<GQL
         {
-          products(filter: {category_id: {eq: "6"}}) {
+          products(filter: {category_id: {eq: "$category" }}) {
             total_count
             items {
               name

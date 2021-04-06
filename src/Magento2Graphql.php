@@ -3,7 +3,9 @@
 namespace Deved\Magento2Graphql;
 
 use Deved\Magento2Graphql\Models\Cart;
+use Deved\Magento2Graphql\Models\CategoryRepository;
 use Deved\Magento2Graphql\Models\Product;
+use Deved\Magento2Graphql\Models\ProductRepository;
 use GraphQL\Client;
 use GraphQL\Query;
 use GraphQL\RawObject;
@@ -33,10 +35,20 @@ class Magento2Graphql
         return new Cart($this, $cartId);
     }
 
-    public function getProducts()
+    /**
+     * @param int $catId
+     * @return HasQuery
+     */
+    public function getProducts($catId)
     {
-        $product = new Product($this);
-        return $product->executeQuery('products');
+        $product = new ProductRepository($this);
+        return $product->executeQuery('products', ['category' => $catId]);
+    }
+
+    public function getCategories()
+    {
+        $categories = new CategoryRepository($this);
+        return $categories->executeQuery('categories');
     }
 
     /**

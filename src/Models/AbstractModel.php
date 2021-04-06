@@ -6,6 +6,10 @@ namespace Deved\Magento2Graphql\Models;
 
 use Deved\Magento2Graphql\HasQuery;
 use Deved\Magento2Graphql\Magento2Graphql;
+use GraphQL\Query;
+use GraphQL\QueryBuilder\QueryBuilder;
+use GraphQL\RawObject;
+use GraphQL\Variable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
@@ -27,12 +31,26 @@ abstract class AbstractModel implements Arrayable, \ArrayAccess, Jsonable, \Json
     public function __construct(Magento2Graphql $gql)
     {
         $this->gql = $gql;
-        $this->setQueries();
     }
 
     protected function setQueries()
     {
 
+    }
+
+    public function getQuery($name): string
+    {
+        return $this->query[$name];
+    }
+
+    public function executeQuery($name, array $variables = []): HasQuery
+    {
+        foreach ($variables as $index => $var) {
+            $this->{$index} = $var;
+        }
+        $this->setQueries();
+        $this->content = $this->gql->client->runRawQuery($this->getQuery($name), true, $variables)->getData();
+        return $this;
     }
 
     public function getContent()
