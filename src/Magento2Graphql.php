@@ -26,6 +26,19 @@ class Magento2Graphql
     }
 
     /**
+     * Magic method
+     */
+    public function __call($name, $arguments)
+    {
+        $queryClass = 'Deved\\Magento2Graphql\\Queries\\' . ucfirst($name);
+        $params = [];
+        if (isset($arguments[0]) && is_array($arguments[0])) {
+            $params = $arguments[0];
+        }
+        $this->query($queryClass, $params);
+    }
+
+    /**
      * Get the Cart
      * @param false|string $cartId
      * @return Cart
@@ -41,8 +54,8 @@ class Magento2Graphql
      */
     public function getProducts($catId)
     {
-        $product = new ProductRepository($this);
-        return $product->executeQuery('products', ['category' => $catId]);
+        $products = new ProductRepository($this);
+        return $products->executeQuery('products', ['category' => $catId]);
     }
 
     public function getCategories()
@@ -52,20 +65,15 @@ class Magento2Graphql
     }
 
     /**
-     * @return Query
+     * @param $model
+     * @param $query
+     * @param array $params
+     * @return Queryable
      */
-    public function productsQuery()
+    public function query($model, array $params = [])
     {
-        return (new Query('products'))
-            ->setArguments(['filter' => new RawObject('{category_id: {eq: "6"}}')])
-            ->setSelectionSet(
-                [
-                    'total_count',
-                    (new Query('items'))
-                    ->setSelectionSet([
-                        'name'
-                    ])
-                ]
-            );
+        /** @var Queryable $item */
+        $item = new $model($this);
+        return $item->executeQuery($params);
     }
 }
