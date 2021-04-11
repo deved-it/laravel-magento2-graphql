@@ -2,6 +2,11 @@
 
 namespace Deved\Magento2Graphql;
 
+/**
+ * @method public Queryable products(array $params)
+ *
+ */
+
 use Deved\Magento2Graphql\Models\Cart;
 use Deved\Magento2Graphql\Models\CategoryRepository;
 use Deved\Magento2Graphql\Models\Product;
