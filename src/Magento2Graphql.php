@@ -23,6 +23,7 @@ class Magento2Graphql
 
     /**
      * Magento2Graphql constructor.
+     *
      * @param array $config
      */
     public function __construct()
@@ -31,16 +32,24 @@ class Magento2Graphql
     }
 
     /**
-     * Magic method
+     * Handle dynamic query calls.
+     *
+     * @param  string  $name
+     * @param  array  $parameters
+     * @return mixed
      */
-    public function __call($name, $arguments)
+    public function __call($name, $parameters)
     {
-        $queryClass = 'Deved\\Magento2Graphql\\Queries\\' . ucfirst($name);
-        $params = [];
-        if (isset($arguments[0]) && is_array($arguments[0])) {
-            $params = $arguments[0];
+        if (class_exists('App\\Magento2Graphql\\Queries\\' . ucfirst($name))) {
+            $queryClass = 'App\\Magento2Graphql\\Queries\\' . ucfirst($name);
+        } else {
+            $queryClass = 'Deved\\Magento2Graphql\\Queries\\' . ucfirst($name);
         }
-        $this->query($queryClass, $params);
+        $params = [];
+        if (isset($parameters[0]) && is_array($parameters[0])) {
+            $params = $parameters[0];
+        }
+        return $this->query($queryClass, $params);
     }
 
     /**
