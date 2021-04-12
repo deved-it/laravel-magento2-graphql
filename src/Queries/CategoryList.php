@@ -1,14 +1,15 @@
 <?php
 
 
-namespace Deved\Magento2Graphql\Models;
+namespace Deved\Magento2Graphql\Queries;
 
 
-class CategoryRepository extends AbstractModel
+final class CategoryList extends AbstractQuery
 {
-    protected function setQueries()
+
+    public function setQuery(): void
     {
-        $categories = <<<GQL
+        $this->query = <<<GQL
         {
           categoryList(
             filters: {
@@ -33,6 +34,5 @@ class CategoryRepository extends AbstractModel
           }
         }
         GQL;
-        $this->query['categories'] = $categories;
     }
 }

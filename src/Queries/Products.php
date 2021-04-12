@@ -4,11 +4,12 @@
 namespace Deved\Magento2Graphql\Queries;
 
 
-class Products extends AbstractQuery
+final class Products extends AbstractQuery
 {
     /** @var int - Magento Category ID */
     public $category;
-    protected function setQueries()
+
+    public function setQuery() : void
     {
         $category = $this->category;
         $products = <<<GQL

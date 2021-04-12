@@ -10,15 +10,17 @@ use Deved\Magento2Graphql\Queryable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
-abstract class AbstractQuery implements Arrayable, \ArrayAccess, Jsonable, \JsonSerializable, Queryable
+abstract class AbstractQuery
+    implements Arrayable, \ArrayAccess, Jsonable, \JsonSerializable, Queryable
 {
-    /**
-     * @var Magento2Graphql
-     */
+
+     /** @var Magento2Graphql */
     public $gql;
+
     /** @var  array */
     protected $content;
 
+    /** @var string raw GraphQl Query */
     protected $query;
 
     /**
@@ -28,11 +30,6 @@ abstract class AbstractQuery implements Arrayable, \ArrayAccess, Jsonable, \Json
     public function __construct(Magento2Graphql $gql)
     {
         $this->gql = $gql;
-    }
-
-    protected function setQueries()
-    {
-
     }
 
     public function getQuery(): string
@@ -45,7 +42,7 @@ abstract class AbstractQuery implements Arrayable, \ArrayAccess, Jsonable, \Json
         foreach ($variables as $index => $var) {
             $this->{$index} = $var;
         }
-        $this->setQueries();
+        $this->setQuery();
         $this->content = $this->gql->client->runRawQuery($this->getQuery(), true, $variables)->getData();
         return $this;
     }
