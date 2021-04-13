@@ -27,10 +27,17 @@ final class Products extends AbstractQuery
                 url
               }
               price_range {
-                maximum_price {
+                minimum_price {
                   regular_price {
                     value
                     currency
+                  }
+                  fixed_product_taxes {
+                    amount {
+                      value
+                      currency
+                    }
+                    label
                   }
                 }
               }

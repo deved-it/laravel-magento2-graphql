@@ -15,7 +15,9 @@ final class Cart extends AbstractQuery
         $cart = <<<GQL
         {
           cart(cart_id: "$cart_id") {
+            id
             email
+            total_quantity
             items {
               prices {
                 total_item_discount {
