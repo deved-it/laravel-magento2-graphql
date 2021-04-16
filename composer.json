@@ -1,9 +1,10 @@
 {
-    "name": "deved-it/laravel-magento2-graphql",
+    "name": "deved/laravel-magento2-graphql",
     "description": "Magento 2 Laravel Graphql Client Library",
     "keywords": [
         "deved",
-        "magento2-graphql"
+        "magento2-graphql",
+        "laravel"
     ],
     "homepage": "https://github.com/deved-it/laravel-magento2-graphql",
     "license": "MIT",
@@ -11,15 +12,14 @@
     "authors": [
         {
             "name": "Salvatore Guarino",
-            "email": "info@deved.it",
-            "role": "Developer"
+            "email": "info@deved.it"
         }
     ],
     "require": {
         "php": "^7.3|^8.0",
         "gmostafa/php-graphql-client": "^1.10",
         "guzzlehttp/guzzle": "^7.3",
-        "laravel/framework": "^8.12",
+        "laravel/framework": "^7.0 | ^8.0",
         "ext-json": "*"
     },
     "require-dev": {
