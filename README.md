@@ -6,4 +6,10 @@
 
 Build your commerce website in Laravel + Magento 2 in headless mode.
 
+## Installation
+
+    composer require deved/laravel-magento2-graphql
+
+## Documentation
+
 [Documentation website](https://deved-it.github.io/laravel-magento2-graphql/)
