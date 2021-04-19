@@ -38,6 +38,10 @@ module.exports = {
       {
         text: 'Guide',
         link: '/guide/',
+      },
+      {
+        text: 'Github',
+        link: 'https://github.com/deved-it/laravel-magento2-graphql'
       }
     ],
     sidebar: {
@@ -61,5 +65,6 @@ module.exports = {
   plugins: [
     '@vuepress/plugin-back-to-top',
     '@vuepress/plugin-medium-zoom',
+    '@goy/svg-icons'
   ]
 }

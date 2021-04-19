@@ -6,11 +6,12 @@
   "author": "Salvatore Guarino <sg@deved.it>",
   "license": "MIT",
   "devDependencies": {
+    "@goy/vuepress-plugin-svg-icons": "^4.2.3",
     "vuepress": "^1.8.2"
   },
   "scripts": {
-      "docs:dev": "vuepress dev docs",
-      "docs:build": "vuepress build docs",
-      "docs:deploy": "npm run docs:build && npx gh-pages docs/.vuepress/dist"
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "docs:deploy": "npm run docs:build && npx gh-pages docs/.vuepress/dist"
   }
 }
