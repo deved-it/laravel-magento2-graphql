@@ -36,7 +36,7 @@
     </header>
 
       <div class="sponsor hero">
-          <p>Sponsorized by:</p>
+          <p>Sponsored by:</p>
           <a href="https://www.walmec.com/" target="_blank"><img src="walmec_sponsor.jpg" alt="Walmec S.p.A."></a>
       </div>
 
