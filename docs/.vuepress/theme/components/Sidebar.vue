@@ -6,7 +6,7 @@
     <slot name="top" />
       <div class="sponsor">
           <p>Our sponsor:</p>
-          <a href="https://www.walmec.com/" target="_blank"><img src="/walmec_sponsor.jpg" alt="Walmec S.p.A."></a>
+          <a href="https://www.walmec.com/" target="_blank"><img :src="$withBase('/walmec_sponsor.jpg')" alt="Walmec S.p.A."></a>
       </div>
     <SidebarLinks
       :depth="0"
