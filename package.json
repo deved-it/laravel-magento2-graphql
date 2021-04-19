@@ -1,0 +1,15 @@
+{
+  "name": "laravel-magento2-graphql",
+  "version": "1.0.0",
+  "description": "A Laravel Magento 2 GraphQL Client Library",
+  "repository": "https://github.com/deved-it/laravel-magento2-graphql",
+  "author": "Salvatore Guarino <sg@deved.it>",
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.8.2"
+  },
+  "scripts": {
+      "docs:dev": "vuepress dev docs",
+      "docs:build": "vuepress build docs"
+  }
+}
