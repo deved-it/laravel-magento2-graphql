@@ -1,25 +1,24 @@
-{
-  language: php,
-  os: [
-      linux
-  ],
-  dist: xenial,
-  php: [
-      7.3,
-      7.4,
-      8.0
-  ],
-  matrix:
-    fast_finish: true,
+language: php
 
-  before_script: [
-      "travis_retry composer self-update",
-      "travis_retry composer update --no-interaction --prefer-source"
-  ],
-  script: [
-      "vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover"
-  ],
-  after_script: [
-      "php vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover"
-  ]
-}
+sudo: false
+
+dist: xenial
+
+php:
+  - 7.3
+  - 7.4
+  - 8.0
+
+matrix:
+  fast_finish: true
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+before_script:
+  - travis_retry composer self-update
+  - travis_retry composer update --no-interaction --prefer-dist
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
