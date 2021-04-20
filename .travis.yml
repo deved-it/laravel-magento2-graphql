@@ -1,26 +1,25 @@
 {
-  "language": "php",
-  "os": [
-      "linux"
+  language: php,
+  os: [
+      linux
   ],
-  "dist": "xenial",
-  "php": [
-      "7.3",
-      "7.4",
-      "8.0"
+  dist: xenial,
+  php: [
+      7.3,
+      7.4,
+      8.0
   ],
-  "branches": {
-    only:
-      - main
-  },
-  "before_script": [
+  matrix:
+    fast_finish: true,
+
+  before_script: [
       "travis_retry composer self-update",
       "travis_retry composer update --no-interaction --prefer-source"
   ],
-  "script": [
+  script: [
       "vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover"
   ],
-  "after_script": [
+  after_script: [
       "php vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover"
   ]
 }
