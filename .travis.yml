@@ -9,6 +9,10 @@
       "7.4",
       "8.0"
   ],
+  "branches": {
+    only:
+      - main
+  },
   "env": {
     "jobs": [
       {
