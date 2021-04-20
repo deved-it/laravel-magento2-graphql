@@ -7,13 +7,11 @@ namespace Deved\Magento2Graphql;
  *
  */
 
-use Deved\Magento2Graphql\Models\Cart;
-use Deved\Magento2Graphql\Models\CategoryRepository;
-use Deved\Magento2Graphql\Models\Product;
-use Deved\Magento2Graphql\Models\ProductRepository;
+
 use GraphQL\Client;
 use GraphQL\Query;
 use GraphQL\RawObject;
+use Psr\Http\Client\ClientInterface;
 
 class Magento2Graphql
 {
@@ -26,9 +24,13 @@ class Magento2Graphql
      *
      * @param array $config
      */
-    public function __construct()
+    public function __construct(ClientInterface $client = null)
     {
-        $this->client = new Client(config('magento2-graphql.server'),[]);
+        if ($client) {
+            $this->client = new Client('',[],[],$client);
+        } else {
+            $this->client = new Client(config('magento2-graphql.server'),[]);
+        }
     }
 
     /**
@@ -50,32 +52,6 @@ class Magento2Graphql
             $params = $parameters[0];
         }
         return $this->query($queryClass, $params);
-    }
-
-    /**
-     * Get the Cart
-     * @param false|string $cartId
-     * @return Cart
-     */
-    public function getCart($cartId = false)
-    {
-        return new Cart($this, $cartId);
-    }
-
-    /**
-     * @param int $catId
-     * @return HasQuery
-     */
-    public function getProducts($catId)
-    {
-        $products = new ProductRepository($this);
-        return $products->executeQuery('products', ['category' => $catId]);
-    }
-
-    public function getCategories()
-    {
-        $categories = new CategoryRepository($this);
-        return $categories->executeQuery('categories');
     }
 
     /**
