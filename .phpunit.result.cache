@@ -1,0 +1,1 @@
+C:37:"PHPUnit\Runner\DefaultTestResultCache":317:{a:2:{s:7:"defects";a:0:{}s:5:"times";a:4:{s:53:"Deved\Magento2Graphql\Tests\ExampleTest::true_is_true";d:0.309;s:62:"Deved\Magento2Graphql\Tests\GqlTest::testCreateMagento2Graphql";d:0.034;s:49:"Deved\Magento2Graphql\Tests\GqlTest::testProducts";d:0.011;s:45:"Deved\Magento2Graphql\Tests\GqlTest::testCart";d:0.004;}}}

@@ -15,7 +15,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Tests\TestCase;
+use Orchestra\Testbench\TestCase;
 
 class GqlTest extends TestCase
 {
